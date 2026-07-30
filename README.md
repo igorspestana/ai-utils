@@ -1,4 +1,4 @@
-# Prompts Collection
+# AI Utils
 
 Repositório para reunir prompts e agent skills curados e reutilizáveis para diversos usos (engenharia de software, produto, design, dados, marketing, escrita, etc.). O objetivo é padronizar, documentar e facilitar a descoberta e evolução desses artefatos.
 
