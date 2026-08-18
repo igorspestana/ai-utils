@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Quality Review"
+  short_description: "Avalia se testes realmente detectam bugs"
+  default_prompt: "Use $test-quality-review para revisar se os testes de um PR realmente validam os requisitos."
