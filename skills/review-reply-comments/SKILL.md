@@ -1,18 +1,19 @@
 ---
 name: review-reply-comments
-description: Gera rascunhos de comentários inline para achados de code review usando Conventional Comments, com o tom mais amigável possível, sempre propositivo e aberto à conversa. Use quando o usuário quiser transformar achados de PR em comentários não publicados, cada um com tag apropriada, texto colaborativo, formulações que convidem à participação do autor e indicação explícita de arquivo e linha.
+description: Busca comentários abertos de um PR e gera rascunhos de resposta inline com Conventional Comments, em tom colaborativo, sem publicar nada. Use ao responder comentários de revisão de um pull request.
 ---
 
 # Review Reply Comments
 
 ## Objetivo
-Transformar achados de review em rascunhos de comentários inline claros e colaborativos, prontos para copiar para um PR ou ferramenta de review, sem publicar nada automaticamente.
+Transformar comentários abertos de revisão — ou achados fornecidos pelo usuário — em rascunhos de respostas inline claros e colaborativos, prontos para copiar para um PR ou ferramenta de review, sem publicar nada automaticamente.
 
 Leia `references/conventional-comments.md` antes de redigir os comentários.
 
 ## Quando usar
 Use esta skill quando o usuário:
 - pedir para converter achados de review em comentários de resposta;
+- informar um número ou URL de PR e pedir respostas aos comentários;
 - quiser manter um tom amigável, sugestivo e objetivo;
 - precisar indicar em qual arquivo e linha cada comentário deve ser inserido;
 - quiser aplicar Conventional Comments de forma consistente;
@@ -22,22 +23,30 @@ Não use esta skill para publicar comentários em GitHub, GitLab ou qualquer out
 
 ## Entrada esperada
 Idealmente receba:
-- uma lista de achados;
-- o diff, patch, trecho de codigo, PR ou arquivos alterados;
+- uma lista de achados ou o número/URL de um PR;
+- o diff, patch, trecho de código, PR ou arquivos alterados;
 - contexto suficiente para localizar cada achado em arquivo e linha.
 
 Se o usuário não fornecer localização precisa, procure no diff ou no código local. Se ainda assim não for possível determinar uma linha defensável, deixe isso explícito e não invente numeração.
 
+### Quando a entrada for um PR
+
+Antes de qualquer análise ou redação, busque as *review threads* não resolvidas do PR. Considere aberto somente o tópico cuja thread esteja marcada como não resolvida; não misture comentários gerais, aprovações ou tópicos já resolvidos. Recupere para cada tópico o autor, o texto do comentário que iniciou a discussão, o arquivo, a linha atual ou original, a URL e as respostas já existentes.
+
+Use uma consulta de leitura ao GitHub que exponha `reviewThreads`, incluindo ao menos `isResolved`, `path`, `line`, `originalLine` e os comentários da thread. Por exemplo, com GitHub CLI autenticado, uma consulta GraphQL ao `pullRequest.reviewThreads` permite filtrar localmente as threads com `isResolved: false`. Se a consulta falhar ou o usuário não tiver acesso ao PR, informe a limitação e não invente comentários.
+
+Após obter os tópicos abertos, leia o diff e o código pertinente antes de elaborar uma resposta para cada um. Não redija uma resposta para uma thread já resolvida. Se não houver tópicos abertos, informe isso e não gere rascunhos.
+
 ## Workflow
-1. Ler todos os achados e o contexto técnico disponível.
-2. Para cada achado, classificar a natureza do ponto: bug, segurança, regra de negócio, performance, dúvida, melhoria, typo, elogio ou detalhe pequeno.
+1. Se houver número ou URL de PR, buscar primeiro as review threads não resolvidas conforme a seção anterior; caso contrário, ler todos os achados fornecidos e o contexto técnico disponível.
+2. Para cada comentário aberto ou achado, classificar a natureza do ponto: bug, segurança, regra de negócio, performance, dúvida, melhoria, typo, elogio ou detalhe pequeno.
 3. Escolher a tag de Conventional Comments mais adequada usando `references/conventional-comments.md`.
 4. Determinar o melhor ponto de inserção no código:
    - priorize a linha exata do problema;
    - se o comentário for sobre um bloco, indique a primeira linha relevante do bloco;
    - sempre informe `arquivo` e `linha`;
    - se a linha for aproximada, sinalize isso como `linha sugerida`.
-5. Redigir um comentário por achado.
+5. Redigir uma resposta por comentário aberto ou um comentário por achado, conforme a entrada.
 6. Não publicar nada. Entregar somente rascunhos.
 
 ## Regras de tom
@@ -112,6 +121,8 @@ Para cada achado, responda neste formato:
 
 ```md
 ### Achado <n>
+- Autor do comentário: `login-do-autor`
+- Comentário em aberto: `texto original do comentário`
 - Arquivo: `caminho/relativo/do/arquivo.ext`
 - Linha: `<numero>` ou `<numero aproximado>`
 - Severidade: `<baixa|média|alta|crítica>`
@@ -125,6 +136,8 @@ Se o comentário apontar um problema obrigatório:
 
 ```md
 ### Achado <n>
+- Autor do comentário: `login-do-autor`
+- Comentário em aberto: `texto original do comentário`
 - Arquivo: `caminho/relativo/do/arquivo.ext`
 - Linha: `123`
 - Severidade: `alta`
@@ -137,6 +150,8 @@ Se o comentário apontar um problema obrigatório:
 ## Validações obrigatórias
 Antes de concluir, confira:
 - existe exatamente um rascunho por achado;
+- quando a entrada for um PR, foram considerados apenas os tópicos de revisão não resolvidos;
+- cada rascunho de resposta a um PR informa `Autor do comentário` e `Comentário em aberto` com o conteúdo recuperado da thread;
 - toda sugestão tem tag compatível com a severidade;
 - comentários de dúvida ou negociação usam formulações como `Fiquei com uma dúvida...` quando isso soar natural;
 - elogios, quando usados, são concretos e não decorativos;

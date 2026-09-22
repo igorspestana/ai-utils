@@ -109,5 +109,6 @@
 109. Garanta consistência arquitetural
 110. Avalie se a solução está adequada à complexidade do problema
 111. Avalie se a solução é over-engineering
-112. Avalie se existe repetição de código, possibilidade de utilizar enum e código legível 
+112. Avalie se existe repetição de código, possibilidade de utilizar enum, mapa de handlers e código legível 
 113. Avalie se a solução tem boa modularidade, acoplamento controlado entre componentes
+114. Verifique métodos sem uso (dead code)
