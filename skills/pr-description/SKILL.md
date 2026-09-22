@@ -36,7 +36,7 @@ Onde `<ref_base>` deve ser:
 3. Se `branch_alvo` continuar ausente (ex.: `HEAD` destacado), usar `HEAD` explicitamente.
 4. Sanitizar nome da branch para path substituindo `/` por `-`.
 5. Definir `ref_base` (`origin/<branch_base>` ou fallback local `<branch_base>`).
-6. Definir arquivo de saída padrão quando não informado: `docs/pr/<branch-sanitizada>/pr-description.md`.
+6. Definir arquivo de saída padrão quando não informado: `agent-artifacts/pr/<branch-sanitizada>/pr-description.md`.
 7. Coletar resumo do diff com `git diff --stat <ref_base>...<branch_alvo_ou_HEAD>`.
     - 7.1 Avaliar tamanho da mudança usando o diff summary:
         - Contar arquivos modificados.
