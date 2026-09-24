@@ -112,3 +112,4 @@
 112. Avalie se existe repetição de código, possibilidade de utilizar enum, mapa de handlers e código legível 
 113. Avalie se a solução tem boa modularidade, acoplamento controlado entre componentes
 114. Verifique métodos sem uso (dead code)
+115. Verfique se a implementação contradiz diretrizes do AGENTS.md
