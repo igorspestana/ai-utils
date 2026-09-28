@@ -51,6 +51,12 @@
 51. Procure `LazyInitializationException`
 52. Verifique performance de banco
 53. Revise índices/consultas pesadas
+53a. Para fluxos que dependem de locking no banco para coordenação concorrente (`FOR UPDATE`, `SKIP LOCKED`, `NOWAIT`, locks pessimistas ou seleção de filas/outbox):
+    - compare `WHERE`, `ORDER BY` e `LIMIT` com as colunas e a ordem dos índices;
+    - considere que o banco pode bloquear linhas examinadas para filtrar ou ordenar, não apenas a linha retornada;
+    - exija teste de integração em MySQL Testcontainers com pelo menos duas transações/threads independentes e sincronização controlada;
+    - valide simultaneamente: (a) o mesmo registro não é processado duas vezes e (b) uma linha bloqueada é pulada para que outra elegível seja processada;
+    - se faltar essa cobertura ou o índice não suportar a consulta, registre um achado.
 54. Verifique loops desnecessários
 55. Revise renders/chamadas duplicadas
 56. Avalie consumo de memória

@@ -13,7 +13,7 @@ Executar um review técnico estruturado usando `references/review.txt` como chec
 
 ## Workflow
 1. Ler `entenda_o_objetivo_do_pr` e validar se é número ou URL de PR; se for branch ou outro formato, retornar erro pedindo número/URL.
-2. Antes de qualquer outra análise, executar `gh pr view <identificador> --comments --json title,body,files,author,baseRefName,headRefName,labels,reviewRequests,reviews` para obter contexto do PR.
+2. Antes de qualquer outra análise, executar `gh pr view <identificador> --json title,body,files,author,baseRefName,headRefName,labels,reviewRequests,reviews,comments` para obter contexto do PR, incluindo os comentários no campo JSON `comments`.
 3. Se o `gh` retornar erro de autenticação, interromper imediatamente e informar apenas que o `gh` não está autenticado.
 4. Se a consulta ao `gh` falhar por outro motivo, interromper a análise e informar o motivo; não inferir o objetivo do PR sem esse passo.
 5. Salvar um resumo enxuto do PR extraído do `gh` em `agent-artifacts/pr-review-backend/<identificador-sanitizado>/gh-pr-summary.md`.
@@ -21,6 +21,7 @@ Executar um review técnico estruturado usando `references/review.txt` como chec
 7. Ler `references/review.txt` e aplicar os itens relevantes ao contexto.
 8. Se houver `diff`, priorizá-lo acima de qualquer resumo ou contexto auxiliar.
 9. Verificar objetivo, regras de negócio, lógica, edge cases, `null`/`Optional`, exceptions, arquitetura, performance, segurança, testes, compatibilidade, logs, DTOs, responsabilidades, duplicação, clareza e manutenção.
+9a. Quando o diff introduzir ou alterar coordenação concorrente via banco, executar a análise de locks, índice e cobertura concorrente definida na checklist.
 10. Se houver `AGENTS.md` aplicável, validá-lo para os arquivos alterados.
 11. Classificar achados por severidade e registrar evidência objetiva.
 12. Se o contexto for insuficiente, declarar a limitação e evitar conclusões não suportadas.
