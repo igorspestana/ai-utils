@@ -1,8 +1,8 @@
 # Prompt para criar um RFC de arquitetura
 
 Use o prompt abaixo como ponto de partida para produzir um RFC de arquitetura para outro sistema. Preencha os campos
-entre colchetes e forneça os documentos de contexto disponíveis. O prompt orienta a investigação e a redação; ele não
-prescreve as tecnologias nem as decisões do sistema de referência.
+entre colchetes e forneça os documentos de contexto disponíveis. O prompt preserva a estrutura do RFC de referência
+como padrão obrigatório, sem prescrever as tecnologias nem as decisões específicas daquele sistema.
 
 ## Prompt reutilizável
 
@@ -77,48 +77,126 @@ entendam a proposta e identifiquem decisões pendentes antes da implementação.
 - Escreva em [IDIOMA], com termos consistentes, frases objetivas e tabelas apenas quando facilitarem comparação ou
   consulta. Evite texto promocional e recomendações sem justificativa.
 - Não declare que implementação, validação ou teste ocorreu se isso não foi realizado.
+- Respeite integralmente o esqueleto fixo abaixo: mantenha todos os títulos, a ordem e a numeração. Não remova,
+  renomeie, combine ou reordene seções, nem acrescente seções de nível superior. Use subtítulos `##` dentro das seções
+  fixas quando precisar organizar detalhes. Adapte o conteúdo ao sistema. Se uma seção não se aplicar, mantenha seu
+  título e registre “Não se aplica” com uma justificativa específica. Não invente conteúdo para preencher uma seção.
+- Registre hipóteses e perguntas em aberto dentro da seção relacionada, sob um subtítulo `##` quando necessário. Não
+  crie uma nova seção numerada para isso.
 
-## Estrutura do RFC
+## Estrutura obrigatória do RFC
 
-Adapte os títulos ao sistema e remova ou combine seções que não se aplicarem. Quando uma seção importante não for
-aplicável, explique brevemente o motivo em vez de preencher com conteúdo genérico.
+Use o exemplo a seguir como molde literal da estrutura do documento. Os textos entre colchetes são placeholders para
+substituir pelos dados do sistema. Os itens da tabela de conteúdo devem corresponder exatamente aos títulos numerados.
 
-1. **Título e metadados** — nome, status, data, escopo, consumidores ou usuários, repositório/artefato/ambiente quando
-   conhecidos.
-2. **Decisão central** — recomendação em poucas linhas, principais componentes e fluxo de alto nível; marque decisões
-   pendentes.
-3. **Conteúdo** — índice numerado das seções.
-4. **Contexto e problema** — situação atual, motivação, impacto, objetivos, não objetivos e critérios de sucesso.
-5. **Responsabilidades e fronteiras** — responsabilidades do sistema, consumidores, dependências e itens fora do
+```markdown
+# RFC - [Nome do sistema ou da proposta]
+
+| Campo | Definição |
+| --- | --- |
+| Status | [Status da proposta] |
+| Data | [Data de elaboração ou atualização] |
+| Escopo | [Sistema, mudança ou problema coberto] |
+| Consumidores esperados | [Sistemas, usuários ou equipes consumidores] |
+| Repositório | [Repositório ou “Não se aplica”] |
+| Artifact | [Artefato, serviço ou produto] |
+| Ponto de entrada | [Endpoint, tópico, interface ou “Não se aplica”] |
+
+> **Decisão central**
+>
+> [Resumo direto da recomendação, fluxo principal, fronteiras e decisões pendentes.]
+
+# Conteúdo
+
+1. Contexto e problema
+2. Responsabilidade e fronteiras
+3. Arquitetura proposta
+4. Contrato do sistema
+5. Proposta de integração consumidora
+6. Modelo assíncrono e filas
+7. Persistência e estados
+8. Integração com dependências externas
+9. Autenticação entre sistemas
+10. Segurança, limites e privacidade
+11. Observabilidade
+12. Estrutura de projeto
+13. Configuração
+14. Testes e definição de pronto
+15. Alternativas consideradas
+16. Riscos e trade-offs
+17. Plano de rollout
+18. Referências
+
+# 1. Contexto e problema
+
+# 2. Responsabilidade e fronteiras
+
+# 3. Arquitetura proposta
+
+# 4. Contrato do sistema
+
+# 5. Proposta de integração consumidora
+
+# 6. Modelo assíncrono e filas
+
+# 7. Persistência e estados
+
+# 8. Integração com dependências externas
+
+# 9. Autenticação entre sistemas
+
+# 10. Segurança, limites e privacidade
+
+# 11. Observabilidade
+
+# 12. Estrutura de projeto
+
+# 13. Configuração
+
+# 14. Testes e definição de pronto
+
+# 15. Alternativas consideradas
+
+# 16. Riscos e trade-offs
+
+# 17. Plano de rollout
+
+# 18. Referências
+```
+
+O conteúdo das seções deve seguir estas responsabilidades, sem alterar a estrutura:
+
+1. **Contexto e problema** — situação atual, motivação, impacto, objetivos, não objetivos e critérios de sucesso.
+2. **Responsabilidade e fronteiras** — responsabilidades do sistema, consumidores, dependências e itens fora do
    escopo.
-6. **Arquitetura proposta** — diagrama, componentes, fluxos principais, fronteiras de confiança e modos de falha.
-7. **Contratos e integração** — APIs, eventos, mensagens, SDKs ou interfaces relevantes; exemplos, validação, erros,
+3. **Arquitetura proposta** — diagrama, componentes, fluxos principais, fronteiras de confiança e modos de falha.
+4. **Contrato do sistema** — APIs, eventos, mensagens, SDKs ou interfaces relevantes; exemplos, validação, erros,
    autenticação, idempotência, versionamento e compatibilidade conforme aplicável.
-8. **Integração dos consumidores ou usuários** — sequência de uso, responsabilidades de cada lado, experiência esperada
-   e comportamento em falhas.
-9. **Processamento assíncrono e filas** — inclua somente se necessário; aborde entrega, duplicidade, ordenação,
-   retries, backoff, DLQ, outbox, concorrência e reprocessamento conforme o desenho escolhido.
-10. **Persistência, dados e estados** — propriedade, modelo conceitual, ciclo de vida, transições, consistência,
-    idempotência, retenção, migração e recuperação.
-11. **Integrações externas** — responsabilidades dos adapters, timeouts, limites, custos, disponibilidade, retries,
-    tratamento de falhas e dependência de fornecedor.
-12. **Autenticação e autorização** — identidades, credenciais, escopos, rotação, isolamento entre consumidores e
-    evolução prevista.
-13. **Segurança, privacidade e limites** — dados sensíveis, ameaça relevante, validação, abuso, quotas, proteção de
+5. **Proposta de integração consumidora** — sequência de uso, responsabilidades de cada lado, experiência esperada e
+   comportamento em falhas.
+6. **Modelo assíncrono e filas** — filas, entrega, duplicidade, ordenação, retries, backoff, DLQ, outbox, concorrência
+   e reprocessamento, quando houver processamento assíncrono. Se não houver, explique a decisão síncrona e registre o
+   restante como não aplicável.
+7. **Persistência e estados** — propriedade, modelo conceitual, ciclo de vida, transições, consistência, idempotência,
+   retenção, migração e recuperação.
+8. **Integração com dependências externas** — responsabilidades dos adapters, timeouts, limites, custos,
+   disponibilidade, retries, tratamento de falhas e dependência de fornecedor.
+9. **Autenticação entre sistemas** — identidades, credenciais, escopos, rotação, isolamento entre consumidores e
+   evolução prevista; explique se não houver autenticação entre sistemas.
+10. **Segurança, limites e privacidade** — dados sensíveis, ameaças relevantes, validação, abuso, quotas, proteção de
     segredos e controles necessários.
-14. **Observabilidade e operação** — logs seguros, métricas, tracing, painéis, alertas, runbooks e sinais de saúde.
-15. **Estrutura de projeto** — organização de módulos/pacotes compatível com a arquitetura e os padrões reais do
-    repositório; omita se não houver decisão de código a registrar.
-16. **Configuração e infraestrutura** — configuração não sensível, secrets, valores por ambiente, permissões e
-    responsabilidades de deploy.
-17. **Testes e definição de pronto** — testes necessários, cenários críticos e critérios de aceite verificáveis.
-18. **Alternativas consideradas** — opções avaliadas, decisão e razões, incluindo quando a escolha poderá mudar.
-19. **Riscos e trade-offs** — risco, impacto e mitigação; não repita decisões sem explicitar a consequência.
-20. **Plano de rollout** — preparação, implementação, validação, integração inicial, produção e gatilhos para evoluções.
-21. **Questões em aberto e hipóteses** — somente as que ainda exigem confirmação, com responsável ou próximo passo se
-    conhecido.
-22. **Referências e fontes de verdade** — documentos internos, padrões e fontes primárias usados; identifique a data
-    de consulta para fatos sujeitos a mudança.
+11. **Observabilidade** — logs seguros, métricas, tracing, painéis, alertas, runbooks e sinais de saúde.
+12. **Estrutura de projeto** — organização de módulos/pacotes compatível com a arquitetura e os padrões reais do
+    repositório; se ainda não houver repositório, registre os princípios de organização ou marque a seção como não
+    aplicável com justificativa.
+13. **Configuração** — configuração não sensível, secrets, valores por ambiente, permissões e responsabilidades de
+    deploy.
+14. **Testes e definição de pronto** — testes necessários, cenários críticos e critérios de aceite verificáveis.
+15. **Alternativas consideradas** — opções avaliadas, decisão e razões, incluindo quando a escolha poderá mudar.
+16. **Riscos e trade-offs** — risco, impacto e mitigação; não repita decisões sem explicitar a consequência.
+17. **Plano de rollout** — preparação, implementação, validação, integração inicial, produção e gatilhos para evoluções.
+18. **Referências** — documentos internos, padrões e fontes primárias usados; identifique a data de consulta para fatos
+    sujeitos a mudança.
 
 ## Revisão antes de entregar
 
@@ -133,6 +211,7 @@ Antes de entregar, confira se:
 - números e afirmações externas têm evidência ou estão marcados como pendentes;
 - documentos complementares estão apontados como fontes de verdade, sem duplicar contratos formais;
 - o texto distingue fatos, decisões, hipóteses e recomendações;
+- os 18 itens constam no índice e cada seção aparece uma vez no corpo, na ordem e numeração fixadas no esqueleto;
 - o RFC está pronto para revisão pelas equipes envolvidas, sem afirmar que já foi aprovado.
 
 Entregue o RFC no local solicitado. Se o destino não foi informado, apresente o documento completo na resposta e
