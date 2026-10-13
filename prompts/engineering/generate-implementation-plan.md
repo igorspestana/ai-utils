@@ -69,8 +69,8 @@ o contexto a partir de outros documentos.
 - Não escolha responsáveis, datas ou estimativas sem evidência. Se for útil, indique um papel ou responsável sugerido e
   deixe explícito que é uma sugestão.
 - Para cada task, escreva descrição autocontida: planejamento e dependências; objetivo; escopo e limites; critérios de
-  aceite e testes; dependências e itens fora de escopo; referências. Adapte os títulos se a ferramenta de backlog usar
-  outro formato.
+  aceite e testes; dependências e itens fora de escopo; referências. Use os campos do modelo obrigatório mesmo que a
+  ferramenta de backlog tenha outro formato; adapte apenas a apresentação exigida pela ferramenta, sem remover campos.
 - Escreva critérios de aceite observáveis, que permitam decidir se o resultado foi entregue. Especifique os testes
   automatizados e manuais pertinentes, quais podem rodar isoladamente e quais dependem do fluxo integrado, de serviços
   externos, de ambientes ou de outras equipes. Não declare que testes foram executados se não foram.
@@ -81,36 +81,98 @@ o contexto a partir de outros documentos.
 - Não crie, altere, feche ou atribua tasks em uma ferramenta externa. Entregue descrições prontas para revisão e uso; só
   opere o backlog se isso tiver sido solicitado explicitamente.
 - Escreva em [IDIOMA], com termos consistentes e frases objetivas. Use tabelas para sequência, dependências e
-  testabilidade quando facilitarem a consulta. Omita seções não aplicáveis e explique brevemente a omissão quando ela
-  puder gerar dúvida.
+  testabilidade.
+- Siga exatamente a estrutura e a ordem do modelo abaixo. Não renomeie, remova, combine ou reordene as seções. Quando
+  uma seção não se aplicar ou não houver informação confirmada, mantenha o título e registre “Não se aplica” ou “A
+  definir”, explicando brevemente o motivo quando necessário. Não invente conteúdo para preencher lacunas.
 
-## Estrutura do plano
+## Estrutura obrigatória do documento a produzir
 
-Adapte a estrutura às necessidades do sistema. Não preencha seções com conteúdo genérico.
+Use o modelo a seguir como estrutura obrigatória do documento de destino. Substitua os textos entre colchetes por
+informações do sistema analisado e mantenha todos os títulos, subtítulos e sua ordem. A tabela de backlog deve conter
+uma linha por task planejada. A seção de descrições deve conter uma descrição completa para cada task da tabela.
 
-1. **Título e resumo** — sistema, objetivo da entrega, escopo da versão e resultado esperado.
-2. **Fontes de verdade e estado atual** — documentos e código consultados, trabalho existente e decisões relevantes.
-3. **Escopo e limites** — entregas incluídas, exclusões explícitas, consumidores, sistemas externos e responsabilidades
-   de outras equipes.
-4. **Backlog por fase ou marco** — tabela com fase, ordem sugerida de início, responsável/papel se conhecido, task,
-   resultado e dependências reais. Marque paralelismo e pré-requisitos externos.
-5. **Descrições prontas das tasks** — uma seção por task, contendo:
-   - **Planejamento:** fase, ordem sugerida de início e dependências reais;
-   - **Objetivo:** resultado de negócio ou técnico que possa ser verificado sem contexto externo à task;
-   - **Escopo:** entregáveis, comportamento, interfaces afetadas e limites;
-   - **Critérios de aceite e testes:** comportamento observável, cobertura necessária, validação isolada e validação
-     integrada ou externa;
-   - **Dependências e fora de escopo:** pré-requisitos, responsáveis externos quando conhecidos e itens excluídos;
-   - **Referências:** documentos, seções, contratos ou configurações relevantes.
-6. **Interfaces e integração** — contratos que várias tasks precisam respeitar, sequência entre componentes, compatibilidade,
-   e como validar a integração. Não redefina contratos mantidos por outra fonte.
-7. **Estratégia transversal de qualidade e entrega** — critérios compartilhados de teste, segurança, migração,
-   observabilidade, deploy, rollout, rollback e prontidão operacional que não sejam específicos de uma única task.
-8. **Matriz de testabilidade** — para cada task, indique se pode ser validada isoladamente, quais dependências são
-   necessárias para a validação integral e quem fornece essas dependências.
-9. **Premissas, decisões pendentes e riscos** — registre somente pontos que afetam escopo, sequência, capacidade,
-   segurança, operação ou aceitação; inclua impacto e próximo passo/responsável se conhecido.
-10. **Referências e fontes de verdade** — caminhos ou links para documentos usados e a responsabilidade de cada um.
+~~~markdown
+# Implementação da [versão ou iniciativa] — [nome do sistema]
+
+## Resumo
+
+[Resultado esperado, escopo da entrega, abordagem geral e limites principais.]
+
+## Backlog [nome da ferramenta ou “proposto”]
+
+[Estado do backlog, lista/projeto, status, tags ou responsáveis, somente se conhecidos. Se não houver backlog existente,
+indique que as tasks abaixo são propostas e ainda precisam ser criadas.]
+
+| Fase | Concluída | Responsável sugerido | Task | Objetivo | Dependências |
+|---|---|---|---|---|---|
+| [fase] | [ ] | [pessoa/papel ou “a definir”] | [nome da task] | [resultado verificável] | [tasks ou pré-requisitos reais; “—” se nenhum] |
+
+### Conteúdo obrigatório das tasks
+
+- **Planejamento:** fase, ordem sugerida de início e dependências reais.
+- **Objetivo:** resultado verificável e autocontido.
+- **Escopo:** entregáveis, limites e interfaces afetadas.
+- **Critérios de aceite e testes:** comportamentos observáveis e validação isolada/integrada.
+- **Dependências e fora de escopo:** bloqueios reais, responsáveis externos e exclusões.
+- **Referências:** documentos e seções pertinentes.
+
+### Descrições prontas para [nome da ferramenta ou “o backlog”]
+
+#### [nome da task]
+
+**Planejamento.**
+
+- **Fase:** [fase].
+- **Ordem de início:** [quando pode começar, inclusive paralelismo].
+- **Dependências reais:** [bloqueios necessários ou “nenhuma”].
+
+**Objetivo.** [Resultado verificável, sem exigir contexto externo à task.]
+
+**Escopo.** [Entregáveis, comportamento, interfaces afetadas e limites.]
+
+**Critérios de aceite e testes.** [Comportamentos observáveis, testes necessários, validação isolada e o que depende
+de integração, ambiente ou terceiros.]
+
+**Dependências e fora de escopo.** [Pré-requisitos, responsáveis externos quando conhecidos e exclusões explícitas.]
+
+**Referências.** [Documentos e seções relevantes.]
+
+[Repita o bloco acima para cada task listada na tabela do backlog.]
+
+## Interfaces e testes
+
+- [Contratos e fontes de verdade que as tasks devem seguir.]
+- [Estratégia de testes por tipo de comportamento e validação integrada.]
+- [Critérios compartilhados de segurança, compatibilidade, migração, rollout, observabilidade e operação.]
+
+### Matriz de testabilidade das tasks
+
+| Task | Testável isoladamente? | Dependências para validação integral |
+|---|---|---|
+| [nome da task] | [sim, parcialmente ou não; explique] | [tasks, ambiente, serviço externo ou equipe responsável; “—” se nenhum] |
+
+## Premissas
+
+- [Premissa confirmada ou hipótese adotada, seu impacto e como confirmar.]
+
+## Decisões complementares validadas
+
+- [Decisão confirmada que detalha as fontes de verdade sem substituí-las.]
+~~~
+
+Regras para aplicar o modelo:
+
+- Preserve todos os títulos, subtítulos e a ordem mostrados, mesmo quando uma seção não se aplicar.
+- Inclua exatamente um checkbox `[ ]` por fase na coluna **Concluída**, na primeira linha daquela fase; deixe essa coluna
+  vazia nas demais tasks da mesma fase. Troque para `[x]` somente quando todas as tasks e os critérios de conclusão da
+  fase estiverem concluídos. Não marque fases futuras como concluídas.
+- Cada task da tabela do backlog deve aparecer uma única vez na seção de descrições, com os mesmos nome, fase e
+  dependências.
+- Diferencie dependências reais de ordem sugerida em todos os pontos em que ambas aparecerem.
+- Não acrescente novas seções ao documento de destino. Inclua detalhes adicionais dentro da seção mais apropriada.
+- Se não houver decisões complementares confirmadas, mantenha a seção e escreva “Nenhuma decisão complementar
+  validada até o momento”.
 
 ## Revisão antes de entregar
 
@@ -118,6 +180,8 @@ Confira se:
 
 - o plano entrega os objetivos declarados e não amplia o escopo sem justificativa;
 - o estado atual e as tasks existentes foram considerados, sem duplicar trabalho concluído ou em andamento;
+- todos os títulos do modelo obrigatório aparecem no documento final, na mesma ordem, sem seções extras;
+- cada task do backlog tem exatamente uma descrição completa, e a tabela e as descrições estão consistentes;
 - cada task tem um resultado claro, escopo delimitado e critérios de aceite verificáveis;
 - fases, ordem sugerida e dependências reais estão diferenciadas;
 - dependências são específicas, necessárias, sem ciclos e compatíveis com o paralelismo indicado;
