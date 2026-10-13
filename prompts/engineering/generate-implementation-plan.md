@@ -104,9 +104,9 @@ uma linha por task planejada. A seção de descrições deve conter uma descriç
 [Estado do backlog, lista/projeto, status, tags ou responsáveis, somente se conhecidos. Se não houver backlog existente,
 indique que as tasks abaixo são propostas e ainda precisam ser criadas.]
 
-| Fase | Concluída | Responsável sugerido | Task | Objetivo | Dependências |
-|---|---|---|---|---|---|
-| [fase] | [ ] | [pessoa/papel ou “a definir”] | [nome da task] | [resultado verificável] | [tasks ou pré-requisitos reais; “—” se nenhum] |
+| Fase | Fase concluída | Responsável sugerido | Task | Task concluída | Objetivo | Dependências |
+|---|---|---|---|---|---|---|
+| [fase] | [ ] | [pessoa/papel ou “a definir”] | [nome da task] | [ ] | [resultado verificável] | [tasks ou pré-requisitos reais; “—” se nenhum] |
 
 ### Conteúdo obrigatório das tasks
 
@@ -164,9 +164,11 @@ de integração, ambiente ou terceiros.]
 Regras para aplicar o modelo:
 
 - Preserve todos os títulos, subtítulos e a ordem mostrados, mesmo quando uma seção não se aplicar.
-- Inclua exatamente um checkbox `[ ]` por fase na coluna **Concluída**, na primeira linha daquela fase; deixe essa coluna
-  vazia nas demais tasks da mesma fase. Troque para `[x]` somente quando todas as tasks e os critérios de conclusão da
-  fase estiverem concluídos. Não marque fases futuras como concluídas.
+- Inclua um checkbox `[ ]` para cada task na coluna **Task concluída**. Troque para `[x]` quando a task e seus critérios
+  de aceite estiverem concluídos.
+- Inclua exatamente um checkbox `[ ]` por fase na coluna **Fase concluída**, na primeira linha daquela fase; deixe essa
+  coluna vazia nas demais tasks da mesma fase. Troque para `[x]` somente quando todas as tasks e os critérios de
+  conclusão da fase estiverem concluídos. Não marque fases futuras como concluídas.
 - Cada task da tabela do backlog deve aparecer uma única vez na seção de descrições, com os mesmos nome, fase e
   dependências.
 - Diferencie dependências reais de ordem sugerida em todos os pontos em que ambas aparecerem.
